@@ -107,7 +107,9 @@ n = length(hemogoblina)
 longitud = qt(1-alpha/2,df=n-1)*S/sqrt(n)
 media - longitud #Inferior
 media + longitud #Superior
-
+media
+S
+n
 
 
 ########################
@@ -128,6 +130,7 @@ p0 = 0.5
 p_barra = obesos/n
 Z = (p_barra - p0)/sqrt(p0*(1-p0)/n)
 
+
 #Se obtiene Z de -10.96, mostrando con total certeza que NO la mayoria de los diabeticos tipo 2 son obesos.
 
 
@@ -141,7 +144,7 @@ Z = (p_barra - p0)/sqrt(p0*(1-p0)/n)
 pnorm(Z,lower.tail =FALSE)
 
 #Se obtiene valor p < 0.001 con alto nivel de significancia
-#Mostrando así que en efecto, la mayoría de los diabeticos tipo 2 son obesos
+#Mostrando así que en efecto, la mayoría de los diabeticos tipo 2 tienen sobrepeso
 
 
 
@@ -210,33 +213,25 @@ pnorm(Z)
 model = lm(table$Glicemia.de.ayuno~table$Peso)
 plot(table$Peso,table$Glicemia.de.ayuno,main="Scatterplot", xlab="Peso", ylab="Glicemia en Ayunas", ylim=c(0,400))
 summary(model)
-
-abline(model)
-
-
-model = lm(table$Tension.DIASTOLICA~table$Peso)
-plot(table$Peso,table$Glicemia.de.ayuno,main="Scatterplot", xlab="Peso", ylab="Glicemia en Ayunas", ylim=c(0,400))
-summary(model)
-abline(model)
+abline(model, col = "darkmagenta", lwd = 2)
 
 # Generalmente hay una relación entre la hemogoblina glicosilada y la microalbuminuria
 model = lm(table$Microalbuminuria~table$Hemoglobina.A1C)
-plot(table$Hemoglobina.A1C,table$Microalbuminuria,main="Scatterplot", ylim=c(0,100))
+plot(table$Hemoglobina.A1C,table$Microalbuminuria,main="Scatterplot", xlab="Hemoglobina", ylab="Microalbuminuria", ylim=c(0,100))
 summary(model)
-abline(model)
+abline(model, col = "darkblue", lwd = 2)
 
 #Hay una relación con nivel de significancia alta entre Glicemia de ayuno y el perimetro abdominal
-plot(table$Glicemia.de.ayuno,table$Perimetro.Abdominal)
+plot(table$Glicemia.de.ayuno,table$Perimetro.Abdominal, main="Scatterplot", xlab="Glicemia en Ayunas", ylab="Perimetro Abdominal")
 model = lm(table$Perimetro.Abdominal~table$Glicemia.de.ayuno)
 summary(model)
-abline(model)
-
+abline(model, col = "seagreen", lwd = 2)
 
 #Hay una relación con nivel de significancia alta entre Glicemia de ayuno y creatinina
-plot(table$Glicemia.de.ayuno,table$Creatinina)
+plot(table$Glicemia.de.ayuno,table$Creatinina,main="Scatterplot", xlab="Glicemia en Ayunas", ylab="Creatinina")
 model = lm(table$Creatinina~table$Glicemia.de.ayuno)
 summary(model)
-abline(model)
+abline(model, col = "darkred", lwd = 2)
 
 #Estos posibles modelos lineales, la evidencia indica ser falsos, y no se pueden establecer relaciones lineales directas entre ellos.
 
